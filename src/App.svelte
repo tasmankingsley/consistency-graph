@@ -18,7 +18,7 @@
 
 <div class="main">
   <span contenteditable="true">pushup days</span>
-  <span class="btn" on:click={toggle}>toggle done</span>
+  <button class="btn" on:click={toggle}>toggle done</button>
   <div class="grid">
     {#each days as day}
       <div class="day" style="background-color: {done ? green : white};"></div>
@@ -30,7 +30,7 @@
 .main {
   display: grid;
   grid-auto-flow: row;
-  grid-template-rows: 80px 60px 1fr;
+  grid-template-rows: 80px 80px 1fr;
   height: 100%;
 }
 
@@ -41,10 +41,12 @@ span {
 }
 
 .btn {
+  text-align: center;
+  margin: auto;
   background-color: #fff;
   width: 150px;
   height: 25px;
-  line-height: 25px;
+  box-sizing: content-box;
   border-radius: 5px;
   color: #000;
   cursor: pointer;
