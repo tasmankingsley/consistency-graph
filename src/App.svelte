@@ -1,17 +1,27 @@
 <script>
+  let green = '#00fa9a';
+  let white = '#fff'
+
+  let done = false;
+
   let days = [];
 
   for (let index = 0; index < 49; index++) {
     days[index] = index + 1;
   }
   console.log(days);
+
+  function toggle() {
+    done = !done;
+  }
 </script>
 
 <div class="main">
   <span contenteditable="true">pushup days</span>
+  <span class="btn" on:click={toggle}>toggle done</span>
   <div class="grid">
     {#each days as day}
-      <div class="day"></div>
+      <div class="day" style="background-color: {done ? green : white};"></div>
     {/each}
   </div>
 </div>
@@ -20,13 +30,24 @@
 .main {
   display: grid;
   grid-auto-flow: row;
-  grid-template-rows: 80px 1fr;
+  grid-template-rows: 80px 60px 1fr;
   height: 100%;
 }
 
 span {
   text-align: center;
   margin: auto;
+  color: #fff;
+}
+
+.btn {
+  background-color: #fff;
+  width: 150px;
+  height: 25px;
+  line-height: 25px;
+  border-radius: 5px;
+  color: #000;
+  cursor: pointer;
 }
 
 .grid {
@@ -49,7 +70,7 @@ span {
   width: 25px;
   height: 25px;
   line-height: 25px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   background-color: #00fa9a;
   /* padding: 5px; */
   border-radius: 5px;
