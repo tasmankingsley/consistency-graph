@@ -1,13 +1,15 @@
 <script>
   let green = '#00fa9a';
-  let white = '#fff'
+  let dark = '#343648'
+  let opacity = 0.2;
 
   let done = false;
 
   let days = [];
 
   for (let index = 0; index < 49; index++) {
-    days[index] = index + 1;
+    // days = [...days, {number: index},{opacity: index / 100}];
+    days[index] = {number: index + 1, opacity: (index + 5) / 50};
   }
   console.log(days);
 
@@ -17,11 +19,14 @@
 </script>
 
 <div class="main">
-  <span contenteditable="true">pushup days</span>
+  <span contenteditable="true">days</span>
   <button class="btn" on:click={toggle}>toggle done</button>
   <div class="grid">
-    {#each days as day}
-      <div class="day" style="background-color: {done ? green : white};"></div>
+    {#each days as day, index}
+      <div class="day" 
+        style="background-color: {done ? green : dark};
+        opacity: {day.opacity};">{day.number}
+      </div>
     {/each}
   </div>
 </div>
@@ -35,12 +40,14 @@
 }
 
 span {
+  font-size: 2rem;
   text-align: center;
   margin: auto;
   color: #fff;
 }
 
 .btn {
+  font-size: 1.3rem;
   text-align: center;
   margin: auto;
   background-color: #fff;
@@ -61,22 +68,23 @@ span {
   height: auto;
   margin: auto;
   background-color: #1e1f29;
-  border-radius: 12px;
+  border-radius: 20px;
   row-gap: 6px;
   column-gap: 6px;
-  padding: 12px;
+  padding: 15px;
   /* border: 1px solid white; */
 }
 
 .day {
-  width: 25px;
-  height: 25px;
-  line-height: 25px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
   font-size: 1rem;
   background-color: #00fa9a;
   /* padding: 5px; */
-  border-radius: 5px;
+  border-radius: 8px;
   text-align: center;
+  color: #fff;
 }
 
 </style>
