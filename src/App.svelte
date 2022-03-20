@@ -69,9 +69,9 @@ span {
   margin: auto;
   background-color: #1e1f29;
   border-radius: 20px;
-  row-gap: 6px;
-  column-gap: 6px;
-  padding: 15px;
+  row-gap: 8px;
+  column-gap: 8px;
+  padding: 16px;
   /* border: 1px solid white; */
 }
 
