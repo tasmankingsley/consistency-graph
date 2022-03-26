@@ -69,20 +69,20 @@ span {
   margin: auto;
   background-color: #1e1f29;
   border-radius: 20px;
-  row-gap: 8px;
-  column-gap: 8px;
+  row-gap: 5px;
+  column-gap: 5px;
   padding: 16px;
   /* border: 1px solid white; */
 }
 
 .day {
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
   font-size: 1rem;
   background-color: #00fa9a;
   /* padding: 5px; */
-  border-radius: 8px;
+  border-radius: 6px;
   text-align: center;
   color: #fff;
 }
