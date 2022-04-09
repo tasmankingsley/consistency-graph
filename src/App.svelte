@@ -7,6 +7,12 @@
 
   let days = [];
 
+  let current_date = new Date().getHours();
+  console.log(current_date)
+
+  // perhaps on:change of the date number, check if index of day is 49 and set toggle to change donee to true
+  // next shift array back
+
   for (let index = 0; index < 49; index++) {
     // days = [...days, {number: index},{opacity: index / 100}];
     days[index] = {number: index + 1, opacity: (index + 5) / 50};
@@ -16,6 +22,10 @@
   function toggle() {
     done = !done;
   }
+
+  function change_day() {
+
+  }
 </script>
 
 <div class="main">
@@ -23,7 +33,9 @@
   <button class="btn" on:click={toggle}>toggle done</button>
   <div class="grid">
     {#each days as day, index}
-      <div class="day" 
+      <div class="day"
+        value={current_date} 
+        on:change={() => change_day(index)}
         style="background-color: {done ? green : dark};
         opacity: {day.opacity};">{day.number}
       </div>
