@@ -1,6 +1,6 @@
 <script>
-import { days } from './lib/stores';
-import { fade } from 'svelte/transition'
+import { title, days, last_date } from './lib/stores';
+import { fade, fly } from 'svelte/transition'
 let green = '#00fa9a';
 let dark = '#343648'
 let light = '#fff'
@@ -31,22 +31,36 @@ function advance() {
   $days = [...$days, {done: false}]
 }
 
-function compare_date() {
+// function compare_date() {
+//   let date_difference = 0;
+  
+//   if (current_date !== $last_date) {
 
-}
+//     date_difference = current_date - $last_date;
+
+//     for (let i = 0; i < date_difference; i++) {
+//       advance();
+//     }
+//     console.log($last_date)
+//     $last_date = current_date;
+//     console.log($last_date)
+//   }
+// }
+
+// compare_date();
 
 function toggle_options() {
-  if (options_height === '100px') {
+  if (options_height === '120px') {
     options_height = '0px';
   } else {
-    options_height = '100px';
+    options_height = '120px';
   }
 }
 
 </script>
 
 <div class="main">
-  <span contenteditable="true">days</span>
+  <span contenteditable="true" bind:innerHTML={$title}></span>
   <div class="grid">
       {#each $days as day}
         <div class="day"
@@ -64,9 +78,9 @@ function toggle_options() {
   <span on:click={toggle_options}>⋯</span>
 
   <div class="options" style:height={options_height}>
-    {#if options_height === '100px'}
-      <button class="btn" on:click={advance} transition:fade={{duration: 200}}>advance day</button>
-      <button class="btn" on:click={init} transition:fade={{duration: 200}}>init days</button>
+    {#if options_height === '120px'}
+      <button class="btn" on:click={advance} transition:fly={{x: -100, duration: 250}}>advance day</button>
+      <button class="btn" on:click={init} transition:fly={{x: 100, duration: 250}}>init days</button>
     {/if}
   </div>
 </div>
@@ -77,14 +91,13 @@ function toggle_options() {
 .main {
   display: grid;
   grid-auto-flow: row;
-  grid-template-rows: 80px 1fr 80px;
+  grid-template-rows: 80px 1fr 100px;
   height: 100%;
 }
 
 .options {
   display: grid;
-  grid-auto-flow: column;
-  gap: 5px;
+  grid-auto-flow: row;
   background-color: #1e1f29;
   transition: height .5s;
   width: 100%;
@@ -104,11 +117,15 @@ span {
   margin: auto;
   background-color: #fff;
   width: 150px;
-  height: 30px;
+  height: 35px;
   box-sizing: content-box;
   border-radius: 10px;
   color: #000;
   cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.9;
 }
 
 .grid {
@@ -116,25 +133,23 @@ span {
   grid-auto-flow: column;
   grid-template-rows: repeat(7, 1fr);
   grid-template-columns: repeat(7, 1fr);;
-  width: auto;
-  height: auto;
+  width: 300px;
+  height: 300px;
   margin: auto;
   background-color: #1e1f29;
   border-radius: 20px;
-  row-gap: 5px;
-  column-gap: 5px;
-  padding: 16px;
+  gap: 5px;
+  padding: 20px;
   /* border: 1px solid white; */
 }
 
 .day {
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
+  width: auto;
+  height: auto;
   font-size: 1rem;
   background-color: #00fa9a;
   /* padding: 5px; */
-  border-radius: 6px;
+  border-radius: 8px;
   text-align: center;
   color: #fff;
 }
