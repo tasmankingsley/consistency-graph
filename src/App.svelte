@@ -1,54 +1,93 @@
 <script>
-  let green = '#00fa9a';
-  let dark = '#343648'
-  let opacity = 0.2;
+import { days } from './lib/stores';
+import { fade } from 'svelte/transition'
+let green = '#00fa9a';
+let dark = '#343648'
+let light = '#fff'
 
-  let done = false;
+let options_height = '0px';
 
-  let days = [];
+let current_date = new Date().getDate();
+console.log(current_date)
 
-  let current_date = new Date().getHours();
-  console.log(current_date)
+// perhaps on:change of the date number, check if index of day is 49 and set toggle to change donee to true
+// next shift array back
 
-  // perhaps on:change of the date number, check if index of day is 49 and set toggle to change donee to true
-  // next shift array back
-
+function init() {
   for (let index = 0; index < 49; index++) {
     // days = [...days, {number: index},{opacity: index / 100}];
-    days[index] = {number: index + 1, opacity: (index + 5) / 50};
+    $days[index] = {done: false};
   }
-  console.log(days);
+}
 
-  function toggle() {
-    done = !done;
+
+
+function toggle() {
+  $days[48].done = !$days[48].done;
+}
+
+function advance() {
+  $days.shift();
+  $days = [...$days, {done: false}]
+}
+
+function compare_date() {
+
+}
+
+function toggle_options() {
+  if (options_height === '100px') {
+    options_height = '0px';
+  } else {
+    options_height = '100px';
   }
+}
 
-  function change_day() {
-
-  }
 </script>
 
 <div class="main">
   <span contenteditable="true">days</span>
-  <button class="btn" on:click={toggle}>toggle done</button>
   <div class="grid">
-    {#each days as day, index}
-      <div class="day"
-        value={current_date} 
-        on:change={() => change_day(index)}
-        style="background-color: {done ? green : dark};
-        opacity: {day.opacity};">{day.number}
-      </div>
-    {/each}
+      {#each $days as day}
+        <div class="day"
+          style:background-color={day.done ? green : dark}
+          style:opacity={day.opacity}>
+        </div>
+      {/each}
+  </div>
+  <button class="btn" on:click={toggle}
+    style:background-color={$days[48].done ? green : dark}
+    style:color={$days[48].done ? dark : light}>
+    {$days[48].done ? 'done' : 'done?'}
+  </button>
+
+  <span on:click={toggle_options}>⋯</span>
+
+  <div class="options" style:height={options_height}>
+    {#if options_height === '100px'}
+      <button class="btn" on:click={advance} transition:fade={{duration: 200}}>advance day</button>
+      <button class="btn" on:click={init} transition:fade={{duration: 200}}>init days</button>
+    {/if}
   </div>
 </div>
+
+
 
 <style>
 .main {
   display: grid;
   grid-auto-flow: row;
-  grid-template-rows: 80px 80px 1fr;
+  grid-template-rows: 80px 1fr 80px;
   height: 100%;
+}
+
+.options {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 5px;
+  background-color: #1e1f29;
+  transition: height .5s;
+  width: 100%;
 }
 
 span {
@@ -56,6 +95,7 @@ span {
   text-align: center;
   margin: auto;
   color: #fff;
+  cursor: pointer;
 }
 
 .btn {
@@ -64,9 +104,9 @@ span {
   margin: auto;
   background-color: #fff;
   width: 150px;
-  height: 25px;
+  height: 30px;
   box-sizing: content-box;
-  border-radius: 5px;
+  border-radius: 10px;
   color: #000;
   cursor: pointer;
 }
