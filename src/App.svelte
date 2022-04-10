@@ -75,12 +75,14 @@ function toggle_options() {
     {$days[48].done ? 'done' : 'done?'}
   </button>
 
-  <span on:click={toggle_options}>⋯</span>
+  <span on:click={toggle_options} style:font-size="2.5rem">⋯</span>
 
   <div class="options" style:height={options_height}>
     {#if options_height === '120px'}
       <button class="btn" on:click={advance} transition:fly={{x: -100, duration: 250}}>advance day</button>
-      <button class="btn" on:click={init} transition:fly={{x: 100, duration: 250}}>init days</button>
+      <button class="btn" on:click={advance} transition:fly={{x: -100, duration: 250}}>add graph</button>
+      <button class="btn red" on:click={init} transition:fly={{x: 100, duration: 250}}>initialise</button>
+      <button class="btn red" on:click={init} transition:fly={{x: 100, duration: 250}}>delete graph</button>
     {/if}
   </div>
 </div>
@@ -91,13 +93,15 @@ function toggle_options() {
 .main {
   display: grid;
   grid-auto-flow: row;
-  grid-template-rows: 80px 1fr 100px;
+  grid-template-rows: 80px 1fr 80px;
+  /* gap: 20px; */
   height: 100%;
 }
 
 .options {
   display: grid;
   grid-auto-flow: row;
+  grid-template-columns: 1fr 1fr;
   background-color: #1e1f29;
   transition: height .5s;
   width: 100%;
@@ -116,16 +120,18 @@ span {
   text-align: center;
   margin: auto;
   background-color: #fff;
-  width: 150px;
+  width: 140px;
   height: 35px;
   box-sizing: content-box;
   border-radius: 10px;
+  border: none;
   color: #000;
   cursor: pointer;
 }
 
-.btn:hover {
-  opacity: 0.9;
+.red {
+  background-color: #fc3b44;
+  color: #fff;
 }
 
 .grid {
