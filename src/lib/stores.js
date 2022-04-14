@@ -2,7 +2,7 @@
 import { writable } from 'svelte/store';
 
 let init_days = [];
-let current_date = new Date().getDate();
+let current_date = new Date().getTime();
 
 for (let index = 0; index < 49; index++) {
     // days = [...days, {number: index},{opacity: index / 100}];

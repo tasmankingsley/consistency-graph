@@ -7,8 +7,13 @@ let light = '#fff'
 
 let options_height = '0px';
 
-let current_date = new Date().getDate();
-console.log(current_date)
+let current_date = new Date().getTime()
+console.log(Date(current_date))
+
+// let month_days = [
+//   31, 28, 31, 30, 31, 30, 31, 30, 30, 31, 30, 31
+// ]
+
 
 // perhaps on:change of the date number, check if index of day is 49 and set toggle to change donee to true
 // next shift array back
@@ -21,7 +26,6 @@ function init() {
 }
 
 
-
 function toggle() {
   $days[48].done = !$days[48].done;
 }
@@ -31,23 +35,24 @@ function advance() {
   $days = [...$days, {done: false}]
 }
 
-// function compare_date() {
-//   let date_difference = 0;
+function compare_date() {
+  let date_difference;
   
-//   if (current_date !== $last_date) {
+  // advances the graph forward by the amount of days passed
+  if (current_date !== $last_date) {
+    date_difference = new Date(current_date - $last_date);
+    console.log(date_difference.getDate());
+    console.log(date_difference.getMonth());
 
-//     date_difference = current_date - $last_date;
 
-//     for (let i = 0; i < date_difference; i++) {
-//       advance();
-//     }
-//     console.log($last_date)
-//     $last_date = current_date;
-//     console.log($last_date)
-//   }
-// }
+    for (let i = 0; i < date_difference.getDate() - 1; i++) {
+      advance();
+    }
+    $last_date = current_date;
+  }
+}
 
-// compare_date();
+compare_date();
 
 function toggle_options() {
   if (options_height === '120px') {
