@@ -18,7 +18,7 @@ function compare_date() {
   let date_difference;
   let month;
 
-  current_date = current_date + (86400000 * 40);
+  // current_date = current_date + (86400000 * 40);
 
   date_difference = new Date(current_date - $last_date).getDate();
   month = new Date(current_date - $last_date).getMonth();
