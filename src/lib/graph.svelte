@@ -56,9 +56,9 @@ function toggle_options() {
         {/each}
     </div>
     <button class="btn" on:click={toggle}
-    style:background-color={$days[48].done ? green : dark}
-    style:color={$days[48].done ? dark : light}>
-    {$days[48].done ? 'done' : 'done?'}
+        style:background-color={$days[48].done ? green : dark}
+        style:color={$days[48].done ? dark : light}>
+        {$days[48].done ? 'done' : 'done?'}
     </button>
 
     <span on:click={toggle_options} style:font-size="2.5rem">⋯</span>
