@@ -1,13 +1,11 @@
 <script>
-import { title, days, last_date } from './lib/stores';
+import { title, days, last_date, graphs } from './lib/stores';
 import Graph from './lib/graph.svelte';
 
 let current_date = new Date().getTime();
 // console.log(current_date)
 
-let graphs = [
-    1
-]
+
 
 function advance() {
     $days.shift();
@@ -49,7 +47,7 @@ compare_date();
 </script>
 
 <div class="main">
-  {#each graphs as graph}
+  {#each $graphs as graph}
     <svelte:component this={Graph}/>
   {/each}
 </div>

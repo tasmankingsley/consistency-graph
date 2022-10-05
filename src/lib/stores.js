@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { writable } from 'svelte/store';
 
 let init_days = [];
@@ -8,6 +7,10 @@ for (let index = 0; index < 49; index++) {
     // days = [...days, {number: index},{opacity: index / 100}];
     init_days[index] = {done: false};
 }
+
+export let graphs = writable([
+    {number: 1}
+]);
 
 export let last_date = writable(localStorage.getItem('date_store') || current_date);
 last_date.subscribe((value) => localStorage.date_store = value);

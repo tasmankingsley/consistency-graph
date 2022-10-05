@@ -1,5 +1,5 @@
 <script>
-import { title, days, last_date } from './stores';
+import { title, days, last_date, graphs } from './stores';
 import { fade, fly } from 'svelte/transition';
 
 let green = '#00fa9a';
@@ -12,7 +12,7 @@ let current_date = new Date().getTime();
 // console.log(current_date)
 
 
-// perhaps on:change of the date number, check if index of day is 49 and set toggle to change donee to true
+// perhaps on:change of the date number, check if index of day is 49 and set toggle to change done to true
 // next shift array back
 
 function init() {
@@ -32,6 +32,19 @@ function toggle() {
 function advance() {
     $days.shift();
     $days = [...$days, {done: false}]
+}
+
+function add_graph() {
+    $graphs = [...$graphs, {number: 1}];
+
+    toggle_options();
+}
+
+function delete_graph() {
+    $graphs.splice(1, 1);
+    $graphs = $graphs;
+
+    toggle_options();
 }
 
 
@@ -66,9 +79,9 @@ function toggle_options() {
     <div class="options" style:height={options_height}>
     {#if options_height === '120px'}
         <button class="btn" on:click={advance} transition:fly={{x: -100, duration: 250}}>advance day</button>
-        <button class="btn" on:click={init} transition:fly={{x: -100, duration: 250}}>add graph</button>
+        <button class="btn" on:click={add_graph} transition:fly={{x: -100, duration: 250}}>add graph</button>
         <button class="btn red" on:click={init} transition:fly={{x: 100, duration: 250}}>initialise</button>
-        <button class="btn red" on:click={init} transition:fly={{x: 100, duration: 250}}>delete graph</button>
+        <button class="btn red" on:click={delete_graph} transition:fly={{x: 100, duration: 250}}>delete graph</button>
     {/if}
     </div>
 </div>
@@ -90,7 +103,9 @@ function toggle_options() {
     grid-template-columns: 1fr 1fr;
     background-color: #1e1f29;
     transition: height .5s;
-    width: 100%;
+    width: 350px;
+    margin: auto;
+    border-radius: 15px;
 }
 
 span {
